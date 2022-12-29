@@ -6,7 +6,7 @@
 #    By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 12:52:04 by mbarylak          #+#    #+#              #
-#    Updated: 2022/12/27 17:22:17 by mbarylak         ###   ########.fr        #
+#    Updated: 2022/12/29 18:42:35 by mbarylak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,14 @@ LIBFT_NAME	=	libft.a
 
 UTILS		=	env_utils env_utils2 print_info free
 EXEC		=	exec_builtins exec_cmd exec_single_child
+PARSER		=	create_tree
+LEXER		=	lexer
 BUILTINS	=	env pwd echo exit cd export unset
 
 SRCS		=	$(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) \
 				$(addsuffix .c, $(addprefix sources/executor/, $(EXEC))) \
+				$(addsuffix .c, $(addprefix sources/parser/, $(PARSER))) \
+				$(addsuffix .c, $(addprefix sources/lexer/, $(LEXER))) \
 				$(addsuffix .c, $(addprefix sources/builtins/, $(BUILTINS))) \
 				main.c
 

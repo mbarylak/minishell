@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:26:12 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/12/27 17:26:26 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/12/29 17:54:32 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	print_error(char *cmd, int n)
 	return (0);
 }
 
-static char	**get_env_path(t_list *env)
+char	**get_env_path(t_list *env)
 {
 	char	**env_path;
 
@@ -50,7 +50,7 @@ static char	**get_env_path(t_list *env)
 	return (NULL);
 }
 
-static char	*get_right_path(char *cmd)
+char	*get_right_path(char *cmd)
 {
 	char	*path;
 	char	*aux;

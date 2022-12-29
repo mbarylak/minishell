@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:36:38 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/12/27 17:23:22 by mbarylak         ###   ########.fr       */
+/*   Updated: 2022/12/29 17:57:56 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include "parser.h"
+# include "executor.h"
+# include "lexer.h"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -31,8 +34,11 @@ typedef struct s_shell
 {
 	t_list	*env;
 	int		exit;
+	int		ret;
 	int		exit_stat;
 	int		pipes;
+	int		nb_args;
+	t_token	*tokens;
 }	t_shell;
 
 t_shell	*g_shell;
@@ -75,11 +81,5 @@ void	ft_exit(char **arg);
 int		ft_cd(char **arg);
 int		ft_export(char **arg);
 int		ft_unset(char **arg);
-
-/* EXECUTOR */
-
-int		exec_cmd(char **cmd);
-void	exit_status(int status);
-int		exec_single_child(char **cmd);
 
 #endif
