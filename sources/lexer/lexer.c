@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:13:55 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 16:24:22 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:19:29 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_access(char *line)
 	else if (get_right_path(line) != NULL)
 		return (1);
 	else
-		return (0);	
+		return (0);
 }
 
 t_token	create_token(char *data, int type)

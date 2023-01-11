@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:49:39 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 19:09:42 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:19:15 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	in_order(t_tree *tree)
 	}
 }
 
-void	shell_loop()
+void	shell_loop(void)
 {
 	in_order(g_shell->tree);
 }
