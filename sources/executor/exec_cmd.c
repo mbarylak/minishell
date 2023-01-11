@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:26:12 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/12/29 17:54:32 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/11 14:31:47 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*get_right_path(char *cmd)
 	char	**env_path;
 	int		i;
 
-	env_path =get_env_path(g_shell->env);
+	env_path = get_env_path(g_shell->env);
 	if (!env_path)
 		return (NULL);
 	i = 0;

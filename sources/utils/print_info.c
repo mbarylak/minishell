@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:07:25 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/12/27 15:50:30 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/11 16:10:45 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		dprintf(2, "%s", env[i]);
+		dprintf(2, "%s ", env[i]);
 		i++;
 	}
 }

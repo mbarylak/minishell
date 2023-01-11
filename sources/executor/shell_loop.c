@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.h                                         :+:      :+:    :+:   */
+/*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/29 17:49:50 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 15:33:29 by mbarylak         ###   ########.fr       */
+/*   Created: 2023/01/11 14:49:39 by mbarylak          #+#    #+#             */
+/*   Updated: 2023/01/11 17:23:46 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTOR_H
-# define EXECUTOR_H
+#include "minishell.h"
 
-/*	EXEC_CMD */
+void	in_order(t_tree *tree)
+{
+	if (tree != NULL)
+	{
+		if (tree->n_type != N_PIPE)
+		{
+			printf("Cmd en pos: %d\n", tree->cmd_pos);
+			print_env(tree->content);
+			printf("\n");
+		}
+		in_order(tree->left);
+		in_order(tree->right);
+	}
+}
 
-char	**get_env_path(t_list *env);
-char	*get_right_path(char *cmd);
-int		exec_cmd(char **cmd);
-
-/* EXEC_SINGLE_CHILD */
-
-void	exit_status(int status);
-int		exec_single_child(char **cmd);
-
-/* SHELL LOOP */
-
-void	in_order(t_tree *tree);
-void	shell_loop();
-
-#endif
+void	shell_loop()
+{
+	in_order(g_shell->tree);
+}

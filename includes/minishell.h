@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:36:38 by mbarylak          #+#    #+#             */
-/*   Updated: 2022/12/29 17:57:56 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/11 14:49:52 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_shell
 	int		pipes;
 	int		nb_args;
 	t_token	*tokens;
+	t_tree	*tree;
 }	t_shell;
 
 t_shell	*g_shell;
