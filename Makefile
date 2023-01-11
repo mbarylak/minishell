@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: danimart <danimart@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 12:52:04 by mbarylak          #+#    #+#              #
-#    Updated: 2022/12/29 18:42:35 by mbarylak         ###   ########.fr        #
+#    Updated: 2023/01/11 16:16:25 by danimart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,21 +45,36 @@ LIBFT		=	-L libft/ -lft
 all:	${NAME}
 
 $(NAME):	$(LIBFT_DIR)$(LIBFT_NAME) $(OBJS)
+	@printf "\n\e[0;33m-\e[1;32m "
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
+	@printf "\n\033[0m"
 
 %.o:	%.c
 	$(CC) $(CFLAGS) -c $< $(INCLUDES) -o $@
 
 $(LIBFT_DIR)$(LIBFT_NAME): $(LIBFT_DIR)
+	@printf "\n\e[1;31m> \e[1;36mMaking \e[1;34m$(NAME)\e[1;36m...\
+	\n\n\e[0;35m$(LIBFT_NAME) commands\e[1;30m:\n"
 	make -C $(LIBFT_DIR)
+	@printf "\n\e[0;35m$(NAME) commands\e[1;30m:\n"
 
 clean:
+	@printf "\n\e[1;31m> \e[1;36mRemoving \e[1;34m$(NAME)\e[1;36m's objects...\
+	\e[1;30m\n\n"
+	@printf "\e[0;33m-\e[1;32m "
 	make -C $(LIBFT_DIR) clean
+	@printf "\e[0;33m-\e[1;32m "
 	$(RM) ${OBJS}
+	@printf "\n\033[0m"
 
 fclean:	clean
+	@printf "\n\e[1;31m> \e[1;36mRemoving \e[1;34m$(NAME)\e[1;36m...\
+	\e[1;30m\n\n"
+	@printf "\e[0;33m-\e[1;32m "
 	make -C $(LIBFT_DIR) fclean
+	@printf "\e[0;33m-\e[1;32m "
 	$(RM) $(NAME)
+	@printf "\n\033[0m"
 
 re:	fclean all
 

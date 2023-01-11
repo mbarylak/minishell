@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarylak <mbarylak@student.42madrid>       +#+  +:+       +#+         #
+#    By: danimart <danimart@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/13 16:37:19 by mbarylak          #+#    #+#              #
-#    Updated: 2022/12/01 13:47:04 by mbarylak         ###   ########.fr        #
+#    Updated: 2023/01/11 15:56:54 by danimart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,15 +38,20 @@ NAME = libft.a
 all: $(NAME) bonus
 
 $(NAME): $(OBJ) $(INCLUDE)
+	@printf "\n\e[0;33m-\e[1;32m "
 	ar rcs $(NAME) $(OBJ)
+	@printf "\e[1;30m\n"
 
 bonus: $(BONUSOBJ) $(INCLUDE)
+	@printf "\n\e[0;33m-\e[1;32m "
 	ar rcs $(NAME) $(BONUSOBJ)
 
 clean:
+	@printf "\e[0;33m-\e[1;32m "
 	$(RM) $(OBJ) $(BONUSOBJ)
 
 fclean: clean
+	@printf "\e[0;33m-\e[1;32m "
 	$(RM) $(NAME)
 
 re: fclean all
