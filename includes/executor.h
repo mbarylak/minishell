@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:49:50 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 15:33:29 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:42:14 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,9 @@ int		exec_single_child(char **cmd);
 
 void	in_order(t_tree *tree);
 void	shell_loop();
+
+/* EXE_PIPES */
+
+int		exe_pipes(t_tree *tree);
 
 #endif

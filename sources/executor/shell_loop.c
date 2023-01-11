@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:49:39 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 17:23:46 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:09:42 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	in_order(t_tree *tree)
 	{
 		if (tree->n_type != N_PIPE)
 		{
-			printf("Cmd en pos: %d\n", tree->cmd_pos);
-			print_env(tree->content);
-			printf("\n");
+			if (g_shell->pipes == 0)
+				exec_single_child(tree->content);
+			else
+				exe_pipes(tree);
 		}
 		in_order(tree->left);
 		in_order(tree->right);

@@ -13,7 +13,7 @@ NAME		=	minishell
 LIBFT_NAME	=	libft.a
 
 UTILS		=	env_utils env_utils2 print_info free
-EXEC		=	exec_builtins exec_cmd exec_single_child shell_loop
+EXEC		=	exec_builtins exec_cmd exec_single_child shell_loop exe_pipes
 PARSER		=	create_tree join_cmd
 LEXER		=	lexer
 BUILTINS	=	env pwd echo exit cd export unset
