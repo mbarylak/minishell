@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: danimart <danimart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 19:12:59 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 15:32:03 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/12 17:26:59 by danimart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,9 @@ t_tree	*create_tree(void);
 
 int		arg_counter(int first, int last);
 char	**join_cmd(int first, int last);
+
+/* INPUT PARSER */
+
+char	**parse_input(char *input);
 
 #endif

@@ -5,16 +5,17 @@
 #                                                     +:+ +:+         +:+      #
 #    By: danimart <danimart@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Updated: 2023/01/11 16:16:25 by danimart         ###   ########.fr        #
+#    Created: 2023/01/11 16:16:25 by danimart          #+#    #+#              #
+#    Updated: 2023/01/12 17:29:59 by danimart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	minishell
+NAME = minishell
 LIBFT_NAME	=	libft.a
 
 UTILS		=	env_utils env_utils2 print_info free
 EXEC		=	exec_builtins exec_cmd exec_single_child shell_loop exe_pipes
-PARSER		=	create_tree join_cmd
+PARSER		=	create_tree join_cmd input_parser
 LEXER		=	lexer
 BUILTINS	=	env pwd echo exit cd export unset
 

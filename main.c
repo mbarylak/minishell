@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: danimart <danimart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:46:16 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 19:16:58 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/12 17:26:17 by danimart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **env)
 		g_shell->nb_args = 0;
 		if (inpt[0] != 0 && inpt[0] != 32)
 		{
-			line = ft_split(inpt, ' ');
+			line = parse_input(inpt);
 			g_shell->tokens = tokenizer(line);
 			g_shell->tree = create_tree();
 			shell_loop();
