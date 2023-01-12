@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:26:12 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 14:31:47 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:01:32 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static int	print_error(char *cmd, int n)
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		perror(cmd);
 		if (g_shell->pipes != 0)
-			exit(126);
-		return (126);
+			exit(1);
+		return (errno);
 	}
 	else if (n == 1)
 	{

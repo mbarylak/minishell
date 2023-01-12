@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:07:15 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 18:41:42 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:42:17 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	last_child(t_tree *tree)
 		close(g_shell->oldfd[0]);
 		waitpid(pid, &status, 0);
 		exit_status(status);
-		while (x != 1)
+		while (x != -1)
 			x = wait(&status);
 	}
 }
