@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:13:55 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/25 16:29:03 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/25 20:04:56 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_redir(char *line, t_token *tokens, int i)
 	}
 	else if (ft_strcmp(line, ">>") == 0)
 	{
-		tokens[i] = create_token(line, T_APPEND);
+		tokens[i] = create_token(line, T_APPEND_OUT);
 		return (1);
 	}
 	else if (ft_strcmp(line, "<") == 0)
@@ -72,7 +72,8 @@ t_token	*tokenizer(char **line)
 		return (NULL);
 	while (line[++i])
 	{
-		if (check_redir(line[i], tokens, i));
+		if (check_redir(line[i], tokens, i))
+			;
 		else if (ft_strcmp(line[i], "|") == 0)
 			tokens[i] = create_token(line[i], T_PIPE);
 		else if (check_access(line[i]))

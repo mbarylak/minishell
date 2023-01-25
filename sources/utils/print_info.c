@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:07:25 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 16:10:45 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/25 19:26:19 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	print_env(char **env)
 		dprintf(2, "%s ", env[i]);
 		i++;
 	}
+	dprintf(2, "\n");
 }
 
 void	print_list(t_list *env)

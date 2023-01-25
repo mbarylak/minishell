@@ -6,7 +6,7 @@
 /*   By: danimart <danimart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 19:12:59 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/12 17:26:59 by danimart         ###   ########.fr       */
+/*   Updated: 2023/01/25 20:06:25 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,40 @@ enum e_node_type
 	N_OTHER,
 };
 
+typedef struct s_redir
+{
+	char			*value;
+	int				r_type;
+	struct s_redir	*next;
+}	t_redir;
+
 typedef struct s_tree
 {
 	char			**content;
 	int				cmd_pos;
 	int				n_type;
+	t_redir			*l_redir;
 	struct s_tree	*right;
 	struct s_tree	*left;
 }	t_tree;
 
 /* CREATE_TREE */
 
-void	add_node_right(t_tree *tree, char **arg, int pos);
-void	add_node_left(t_tree *tree, char **arg, int pos);
-t_tree	*create_node(char **arg, int pos, int n_type);
+void	add_node_right(t_tree *tree, char **arg, int pos, t_redir *redir_l);
+void	add_node_left(t_tree *tree, char **arg, int pos, t_redir *redir_l);
+t_tree	*create_node(char **arg, int pos, int n_type, t_redir *redir_l);
 t_tree	*create_tree(void);
 
 /* JOIN_CMD */
 
 int		arg_counter(int first, int last);
 char	**join_cmd(int first, int last);
+
+/* GET_REDIR_LIST */
+
+t_redir	*add_redir_node(int type, char *value);
+void	create_redir_node(t_redir *redir_l, int type, char *value);
+t_redir	*get_redir_list(int first, int last);
 
 /* INPUT PARSER */
 

@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:48:31 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/25 16:24:25 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/25 19:41:47 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ char	**join_cmd(int first, int last)
 	while (first < last)
 	{
 		if (tokens[first].type == T_CMD || tokens[first].type == T_ARG)
-		{	
-			cmd[i] = tokens[first].data;
-			i++;
-		}
+			cmd[i++] = tokens[first].data;
 		first++;
 	}
 	cmd[i] = NULL;
