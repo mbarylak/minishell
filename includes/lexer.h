@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:37:29 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/25 15:41:46 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:23:38 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 
 enum	e_token_type
 {
-	T_CMD = 1,
-	T_TEXT,
-	T_PIPE,
+	T_PIPE = 1,
+	T_CMD,
+	T_ARG,
+	T_FILE,
 	T_REDIR_OUT,
 	T_APPEND,
 	T_REDIR_IN,

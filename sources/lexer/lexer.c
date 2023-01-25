@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:13:55 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/25 16:02:24 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:29:03 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ t_token	create_token(char *data, int type)
 
 	if (type == T_PIPE)
 		g_shell->pipes++;
-	else if (type == T_CMD || type == T_TEXT || type == T_REDIR_OUT || \
-			type == T_APPEND || type == T_REDIR_IN || type == T_HEREDOC)
+	else if (type >= T_CMD && type <= T_HEREDOC)
 		g_shell->nb_args++;
 	new.data = data;
 	new.type = type;
@@ -79,7 +78,13 @@ t_token	*tokenizer(char **line)
 		else if (check_access(line[i]))
 			tokens[i] = create_token(line[i], T_CMD);
 		else
-			tokens[i] = create_token(line[i], T_TEXT);
+		{
+			if (tokens[i - 1].type >= T_REDIR_OUT && tokens[i - 1].type <= \
+					T_HEREDOC)
+				tokens[i] = create_token(line[i], T_FILE);
+			else
+				tokens[i] = create_token(line[i], T_ARG);
+		}
 	}
 	return (tokens);
 }
