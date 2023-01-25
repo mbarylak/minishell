@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:13:55 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 19:19:29 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:02:24 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,40 @@ int	check_access(char *line)
 		return (0);
 }
 
+int	check_redir(char *line, t_token *tokens, int i)
+{
+	if (ft_strcmp(line, ">") == 0)
+	{
+		tokens[i] = create_token(line, T_REDIR_OUT);
+		return (1);
+	}
+	else if (ft_strcmp(line, ">>") == 0)
+	{
+		tokens[i] = create_token(line, T_APPEND);
+		return (1);
+	}
+	else if (ft_strcmp(line, "<") == 0)
+	{
+		tokens[i] = create_token(line, T_REDIR_IN);
+		return (1);
+	}
+	else if (ft_strcmp(line, "<<") == 0)
+	{
+		tokens[i] = create_token(line, T_HEREDOC);
+		return (1);
+	}
+	else
+		return (0);
+}
+
 t_token	create_token(char *data, int type)
 {
 	t_token	new;
 
 	if (type == T_PIPE)
 		g_shell->pipes++;
-	else if (type == T_CMD || type == T_ARG)
+	else if (type == T_CMD || type == T_TEXT || type == T_REDIR_OUT || \
+			type == T_APPEND || type == T_REDIR_IN || type == T_HEREDOC)
 		g_shell->nb_args++;
 	new.data = data;
 	new.type = type;
@@ -46,12 +73,13 @@ t_token	*tokenizer(char **line)
 		return (NULL);
 	while (line[++i])
 	{
-		if (ft_strcmp(line[i], "|") == 0)
+		if (check_redir(line[i], tokens, i));
+		else if (ft_strcmp(line[i], "|") == 0)
 			tokens[i] = create_token(line[i], T_PIPE);
 		else if (check_access(line[i]))
 			tokens[i] = create_token(line[i], T_CMD);
 		else
-			tokens[i] = create_token(line[i], T_ARG);
+			tokens[i] = create_token(line[i], T_TEXT);
 	}
 	return (tokens);
 }
