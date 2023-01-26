@@ -6,7 +6,7 @@
 /*   By: danimart <danimart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 19:12:59 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/26 15:16:26 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:55:04 by danimart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ typedef struct s_tree
 	struct s_tree	*left;
 }	t_tree;
 
+typedef struct s_input
+{
+	char	*content;
+	void	*prev;
+	void	*next;
+}	t_input;
+
 /* CREATE_TREE */
 
 void	add_node_right(t_tree *tree, char **arg, int pos, t_redir **redir_l);
@@ -65,6 +72,6 @@ t_redir	**get_redir_list(int first, int last);
 
 /* INPUT PARSER */
 
-char	**parse_input(char *input);
+t_input	*parse_input(char *input);
 
 #endif

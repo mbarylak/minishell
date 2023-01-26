@@ -6,7 +6,7 @@
 /*   By: danimart <danimart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:46:16 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/25 18:53:13 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:55:39 by danimart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **env)
 		g_shell->nb_args = 0;
 		if (inpt[0] != 0 && inpt[0] != 32)
 		{
-			line = parse_input(inpt);
+			line = ft_split(inpt, ' ');
 			g_shell->tokens = tokenizer(line);
 			g_shell->tree = create_tree();
 			shell_loop();
