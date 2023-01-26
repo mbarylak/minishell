@@ -6,18 +6,43 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:23:47 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/25 20:06:23 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:53:24 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+/*
+void	print_redir_list(t_redir **redir)
+{
+	t_redir	*aux;
+
+	aux = *redir;
+	if (!aux)
+		return ;
+	printf("Las redirs son:\n");
+	while (aux)
+	{
+		printf("Redir type: %d ", aux->r_type);
+		printf("Redir file: %s\n", aux->value);
+		aux = aux->next;
+	}
+}*/
+
+t_redir	*redir_last(t_redir *redir)
+{
+	if (!redir)
+		return (NULL);
+	while (redir->next)
+		redir = redir->next;
+	return (redir);
+}
 
 static void	print_error(void)
 {
 	dprintf(2, "Error\n");
 }
 
-t_redir	*add_redir_node(int type, char *value)
+t_redir	*create_redir_node(int type, char *value)
 {
 	t_redir	*new;
 
@@ -30,38 +55,35 @@ t_redir	*add_redir_node(int type, char *value)
 	return (new);
 }
 
-void	create_redir_node(t_redir *redir_l, int type, char *value)
+void	add_redir_node(t_redir **redir_l, t_redir *new)
 {
-	if (redir_l)
-	{
-		while (redir_l->next)
-			redir_l = redir_l->next;
-		redir_l->next = add_redir_node(type, value);
-	}
+	if (!redir_l)
+		return ;
+	if (*redir_l == NULL)
+		*redir_l = new;
 	else
-		redir_l = add_redir_node(type, value);
+		redir_last(*redir_l)->next = new;
 }
 
-t_redir	*get_redir_list(int fst, int lst)
+t_redir	**get_redir_list(int fst, int lst)
 {
-	t_token	*tokens;
-	t_redir	*redir_l;
+	t_token	*toks;
+	t_redir	**r_list;
 
-	tokens = g_shell->tokens;
-	redir_l = malloc(sizeof (t_redir));
-	if (!redir_l)
-		return (NULL);
+	toks = g_shell->tokens;
+	r_list = malloc(sizeof (t_redir *));
 	while (fst < lst)
 	{
-		if (tokens[fst].type >= T_REDIR_OUT && tokens[fst].type <= T_HEREDOC)
+		if (toks[fst].type >= T_REDIR_OUT && toks[fst].type <= T_REDIR_IN)
 		{
-			if (tokens[fst + 1].type == T_FILE && tokens[fst].type != T_HEREDOC)
-				create_redir_node(redir_l, tokens[fst].type, \
-						tokens[fst + 1].data);
+			if (toks[fst + 1].type == T_FILE)
+				add_redir_node(r_list, \
+						create_redir_node(toks[fst].type, toks[fst + 1].data));
 			else
 				print_error();
 		}
 		fst++;
 	}
-	return (redir_l);
+	//print_redir_list(r_list);
+	return (r_list);
 }

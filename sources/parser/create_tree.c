@@ -6,13 +6,13 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 16:47:01 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/25 19:56:47 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:58:08 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_node_right(t_tree *tree, char **arg, int pos, t_redir *redir_list)
+void	add_node_right(t_tree *tree, char **arg, int pos, t_redir **redir_list)
 {
 	if (tree->right)
 		add_node_right(tree->right, arg, pos, redir_list);
@@ -20,7 +20,7 @@ void	add_node_right(t_tree *tree, char **arg, int pos, t_redir *redir_list)
 		tree->right = create_node(arg, pos, N_PIPE, redir_list);
 }
 
-void	add_node_left(t_tree *tree, char **arg, int pos, t_redir *redir_list)
+void	add_node_left(t_tree *tree, char **arg, int pos, t_redir **redir_list)
 {
 	if (tree->left)
 		add_node_left(tree->left, arg, pos, redir_list);
@@ -28,7 +28,7 @@ void	add_node_left(t_tree *tree, char **arg, int pos, t_redir *redir_list)
 		tree->left = create_node(arg, pos, N_OTHER, redir_list);
 }
 
-t_tree	*create_node(char **arg, int pos, int n_type, t_redir *redir_list)
+t_tree	*create_node(char **arg, int pos, int n_type, t_redir **redir_list)
 {
 	t_tree	*node;
 
