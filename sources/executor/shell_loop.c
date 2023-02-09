@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:49:39 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 19:19:15 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/02/09 19:33:43 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	in_order(t_tree *tree)
 		if (tree->n_type != N_PIPE)
 		{
 			if (g_shell->pipes == 0)
-				exec_single_child(tree->content);
+				redir_loop(tree);
 			else
 				exe_pipes(tree);
 		}

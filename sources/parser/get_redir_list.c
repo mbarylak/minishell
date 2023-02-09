@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:23:47 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/02/09 16:37:09 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:59:47 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_redir	**get_redir_list(int f, int l)
 	t_redir	**r_list;
 
 	toks = g_shell->tokens;
-	r_list = malloc(sizeof (t_redir));
+	r_list = malloc(sizeof (t_redir *));
 	while (f < l)
 	{
 		if ((toks[f].type >= T_REDIR_OUT && toks[f].type <= T_HEREDOC) && \
