@@ -6,7 +6,7 @@
 /*   By: danimart <danimart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 19:12:59 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/26 16:55:04 by danimart         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:37:06 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ char	**join_cmd(int first, int last);
 
 /* GET_REDIR_LIST */
 
-t_redir	*create_redir_node(int type, char *value);
-void	add_redir_node(t_redir **redir_l, t_redir *nw);
+t_redir	*create_r_node(int type, char *value);
+void	add_r_node(t_redir **redir_l, t_redir *nw);
 t_redir	**get_redir_list(int first, int last);
 
 /* INPUT PARSER */
