@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:23:47 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/02/09 21:59:47 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:59:51 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ t_redir	*create_r_node(int type, char *value)
 	return (new);
 }
 
-void	add_r_node(t_redir **redir_l, t_redir *new)
+void	add_r_node(t_redir **r_list, t_redir *new)
 {
-	if (!redir_l)
-		return ;
-	if (*redir_l == NULL)
-		*redir_l = new;
+	if (!r_list)
+		r_list = malloc(sizeof (t_redir *));
+	if (*r_list == NULL)
+		*r_list = new;
 	else
-		redir_last(*redir_l)->next = new;
+		redir_last(*r_list)->next = new;
 }
 
 t_redir	**get_redir_list(int f, int l)
@@ -53,7 +53,7 @@ t_redir	**get_redir_list(int f, int l)
 	t_redir	**r_list;
 
 	toks = g_shell->tokens;
-	r_list = malloc(sizeof (t_redir *));
+	r_list = NULL;
 	while (f < l)
 	{
 		if ((toks[f].type >= T_REDIR_OUT && toks[f].type <= T_HEREDOC) && \

@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:46:58 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/02/09 22:19:21 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:02:37 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,14 @@ int	*open_redir_list(t_redir *redir)
 	return (fd);
 }
 
-void	redir_loop(t_tree *tree)
+void	redir(t_tree *tree)
 {
 	int		*fd;
 	int		std_fd[2];
 
 	fd = NULL;
-	printf("hola\n");
-	if (tree->l_redir && *(tree->l_redir)) //hay que cambiar condicion, da mucho fallo
+	if (tree->l_redir && *(tree->l_redir))
 	{
-		printf("adios\n");
 		std_fd[0] = dup(STDIN_FILENO);
 		std_fd[1] = dup(STDOUT_FILENO);
 		fd = open_redir_list(*(tree->l_redir));

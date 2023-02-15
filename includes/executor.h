@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:49:50 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/02/09 19:20:43 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:52:31 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int		exe_pipes(t_tree *tree);
 
 /* REDIR */
 
-void	redir_loop(t_tree *tree);
+void	redir(t_tree *tree);
 
 #endif
