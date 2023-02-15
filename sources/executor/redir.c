@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:46:58 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/02/15 17:02:37 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:55:31 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,17 @@ int	*open_redir_list(t_redir *redir)
 	return (fd);
 }
 
+void	print_redir_list(t_redir *redir)
+{
+	if (!redir)
+		return ;
+	while (redir)
+	{
+		printf("La redir tipo %d es hacia %s\n", redir->r_type, redir->value);
+		redir = redir->next;
+	}
+}
+
 void	redir(t_tree *tree)
 {
 	int		*fd;
@@ -92,6 +103,7 @@ void	redir(t_tree *tree)
 	fd = NULL;
 	if (tree->l_redir && *(tree->l_redir))
 	{
+		//print_redir_list(*tree->l_redir);
 		std_fd[0] = dup(STDIN_FILENO);
 		std_fd[1] = dup(STDOUT_FILENO);
 		fd = open_redir_list(*(tree->l_redir));

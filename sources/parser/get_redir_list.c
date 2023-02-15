@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:23:47 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/02/15 16:59:51 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:55:29 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@ t_redir	*redir_last(t_redir *redir)
 {
 	if (!redir)
 		return (NULL);
-	if (redir->next)
-	{
-		while (redir->next)
-			redir = redir->next;
-	}
+	while (redir->next)
+		redir = redir->next;
 	return (redir);
 }
 
@@ -37,14 +34,14 @@ t_redir	*create_r_node(int type, char *value)
 	return (new);
 }
 
-void	add_r_node(t_redir **r_list, t_redir *new)
+void	add_r_node(t_redir **r_list, int type, char *value)
 {
 	if (!r_list)
-		r_list = malloc(sizeof (t_redir *));
+		return ;
 	if (*r_list == NULL)
-		*r_list = new;
+		*r_list = create_r_node(type, value);
 	else
-		redir_last(*r_list)->next = new;
+		redir_last(*r_list)->next = create_r_node(type, value);
 }
 
 t_redir	**get_redir_list(int f, int l)
@@ -53,7 +50,8 @@ t_redir	**get_redir_list(int f, int l)
 	t_redir	**r_list;
 
 	toks = g_shell->tokens;
-	r_list = NULL;
+	r_list = malloc(sizeof (t_redir *));
+	*r_list = NULL;
 	while (f < l)
 	{
 		if ((toks[f].type >= T_REDIR_OUT && toks[f].type <= T_HEREDOC) && \
@@ -61,10 +59,9 @@ t_redir	**get_redir_list(int f, int l)
 		{
 			if (toks[f + 1].data && \
 					(toks[f + 1].type == T_FILE || toks[f + 1].type == T_CMD))
-				add_r_node(r_list, \
-						create_r_node(toks[f].type, toks[f + 1].data));
+				add_r_node(r_list, toks[f].type, toks[f + 1].data);
 			else
-				add_r_node(r_list, create_r_node(toks[f + 1].type, NULL));
+				add_r_node(r_list, toks[f + 1].type, NULL);
 		}
 		f++;
 	}
