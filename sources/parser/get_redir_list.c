@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:23:47 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/02/15 18:55:29 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:13:10 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ t_redir	**get_redir_list(int f, int l)
 	*r_list = NULL;
 	while (f < l)
 	{
-		if ((toks[f].type >= T_REDIR_OUT && toks[f].type <= T_HEREDOC) && \
-				(toks[f - 1].type < T_REDIR_OUT))
+		if ((toks[f].type >= T_REDIR_OUT && toks[f].type <= T_HEREDOC) && (toks[f - 1].type < T_REDIR_OUT))
 		{
 			if (toks[f + 1].data && \
 					(toks[f + 1].type == T_FILE || toks[f + 1].type == T_CMD))

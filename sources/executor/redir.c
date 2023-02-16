@@ -6,7 +6,7 @@
 /*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:46:58 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/02/15 18:55:31 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:35:49 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ int	*open_redir_list(t_redir *redir)
 	while (aux)
 	{
 		if (redir->r_type == T_REDIR_OUT)
-			fd[1] = open(redir->value, O_RDWR|O_CREAT|O_TRUNC, 00777);
+			fd[1] = open(redir->value, O_RDWR | O_CREAT | O_TRUNC, 00644);
 		else if (redir->r_type == T_REDIR_IN)
 			fd[0] = open(redir->value, O_RDONLY);
 		else if (redir->r_type == T_APPEND_OUT)
-			fd[1] = open(redir->value, O_RDWR|O_CREAT|O_APPEND, 00777);
+			fd[1] = open(redir->value, O_APPEND | O_RDWR | O_CREAT, 00644);
 		//else if (redir->r_type == T_HEREDOC)
 		aux = aux->next;
 	}
@@ -103,10 +103,10 @@ void	redir(t_tree *tree)
 	fd = NULL;
 	if (tree->l_redir && *(tree->l_redir))
 	{
-		//print_redir_list(*tree->l_redir);
-		std_fd[0] = dup(STDIN_FILENO);
-		std_fd[1] = dup(STDOUT_FILENO);
-		fd = open_redir_list(*(tree->l_redir));
+		print_redir_list(*tree->l_redir);
+		std_fd[0] = dup(0);
+		std_fd[1] = dup(1);
+		fd = open_redir_list(*tree->l_redir);
 		if (fd == NULL)
 			return ;
 		dup2(fd[0], STDIN_FILENO);
@@ -116,6 +116,7 @@ void	redir(t_tree *tree)
 		dup2(std_fd[1], STDOUT_FILENO);
 		close(std_fd[0]);
 		close(std_fd[1]);
+		close(fd[1]);
 	}
 	else
 		exec_single_child(tree->content);
