@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:46:58 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/04/20 21:27:35 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/04/20 21:33:07 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	print_error(int type, char *data)
 		printf("minishell: *: ambiguous redirect\n");
 	else if (type == -2)
 		printf("minishell: %s: Is a directory\n", data);
+	else if (type == -3)
+		printf("minishell: %s: No such file or directory\n", data);
 }
 
 int	check_redir_list(t_redir *redir)
@@ -66,7 +68,11 @@ void	open_redir_list(t_redir *redir)
 	if (redir->r_type == T_REDIR_OUT)
 		g_shell->fd[1] = open(redir->value, O_RDWR | O_CREAT | O_TRUNC, 00644);
 	else if (redir->r_type == T_REDIR_IN)
+	{
 		g_shell->fd[0] = open(redir->value, O_RDONLY);
+		if (g_shell->fd[0] == -1)
+			print_error(-3, redir->value);
+	}
 	else if (redir->r_type == T_APPEND_OUT)
 		g_shell->fd[1] = open(redir->value, O_APPEND | O_RDWR | O_CREAT, 00644);
 	//else if (redir->r_type == T_HEREDOC)
