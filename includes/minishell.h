@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbarylak <mbarylak@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:36:38 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/11 18:52:47 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/04/13 21:06:49 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_shell
 	int		exit;
 	int		ret;
 	int		exit_stat;
+	int		fd[2];
 	int		oldfd[2];
 	int		pipes;
 	int		nb_args;

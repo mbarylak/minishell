@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_redir_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbarylak <mbarylak@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:23:47 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/02/15 20:13:10 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/04/20 21:25:10 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	add_r_node(t_redir **r_list, int type, char *value)
 	if (*r_list == NULL)
 		*r_list = create_r_node(type, value);
 	else
-		redir_last(*r_list)->next = create_r_node(type, value);
+		(redir_last(*r_list))->next = create_r_node(type, value);
 }
 
 t_redir	**get_redir_list(int f, int l)
@@ -54,7 +54,8 @@ t_redir	**get_redir_list(int f, int l)
 	*r_list = NULL;
 	while (f < l)
 	{
-		if ((toks[f].type >= T_REDIR_OUT && toks[f].type <= T_HEREDOC) && (toks[f - 1].type < T_REDIR_OUT))
+		if ((toks[f].type >= T_REDIR_OUT && toks[f].type <= T_HEREDOC) && \
+			(toks[f - 1].type < T_REDIR_OUT))
 		{
 			if (toks[f + 1].data && \
 					(toks[f + 1].type == T_FILE || toks[f + 1].type == T_CMD))

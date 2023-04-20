@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danimart <danimart@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarylak <mbarylak@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:46:16 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/26 18:38:22 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/04/20 21:03:03 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	init_shell(char **env)
 	g_shell->exit_stat = 0;
 	g_shell->pipes = 0;
 	g_shell->nb_args = 0;
+	g_shell->fd[0] = 0;
+	g_shell->fd[1] = 1;
 	env_to_shell(env);
 }
 

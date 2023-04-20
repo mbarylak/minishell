@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbarylak <mbarylak@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:46:58 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/02/16 20:35:49 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/04/20 21:27:35 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	check_redir_list(t_redir *redir)
 	t_redir	*aux;
 
 	aux = redir;
+	if (!aux)
+		return (1);
 	while (aux)
 	{
 		if (!aux->value)
@@ -59,64 +61,54 @@ int	check_redir_list(t_redir *redir)
 	return (0);
 }
 
-int	*open_redir_list(t_redir *redir)
+void	open_redir_list(t_redir *redir)
 {
-	int		*fd;
-	t_redir	*aux;
-
-	if (check_redir_list(redir))
-		return (NULL);
-	aux = redir;
-	fd = malloc(2 * sizeof (int));
-	fd[0] = STDIN_FILENO;
-	fd[1] = STDOUT_FILENO;
-	while (aux)
-	{
-		if (redir->r_type == T_REDIR_OUT)
-			fd[1] = open(redir->value, O_RDWR | O_CREAT | O_TRUNC, 00644);
-		else if (redir->r_type == T_REDIR_IN)
-			fd[0] = open(redir->value, O_RDONLY);
-		else if (redir->r_type == T_APPEND_OUT)
-			fd[1] = open(redir->value, O_APPEND | O_RDWR | O_CREAT, 00644);
-		//else if (redir->r_type == T_HEREDOC)
-		aux = aux->next;
-	}
-	return (fd);
+	if (redir->r_type == T_REDIR_OUT)
+		g_shell->fd[1] = open(redir->value, O_RDWR | O_CREAT | O_TRUNC, 00644);
+	else if (redir->r_type == T_REDIR_IN)
+		g_shell->fd[0] = open(redir->value, O_RDONLY);
+	else if (redir->r_type == T_APPEND_OUT)
+		g_shell->fd[1] = open(redir->value, O_APPEND | O_RDWR | O_CREAT, 00644);
+	//else if (redir->r_type == T_HEREDOC)
 }
 
-void	print_redir_list(t_redir *redir)
+void	close_redir(int fd0, int fd1)
 {
-	if (!redir)
-		return ;
-	while (redir)
+	close(fd0);
+	close(fd1);
+	if (g_shell->fd[0] != 0)
 	{
-		printf("La redir tipo %d es hacia %s\n", redir->r_type, redir->value);
-		redir = redir->next;
+		close(g_shell->fd[0]);
+		g_shell->fd[0] = 0;
+	}
+	if (g_shell->fd[1] != 1)
+	{
+		close(g_shell->fd[1]);
+		g_shell->fd[1] = 1;
 	}
 }
 
 void	redir(t_tree *tree)
 {
-	int		*fd;
+	t_redir	*aux;
 	int		std_fd[2];
 
-	fd = NULL;
-	if (tree->l_redir && *(tree->l_redir))
+	aux = *tree->l_redir;
+	if (!check_redir_list(aux))
 	{
-		print_redir_list(*tree->l_redir);
 		std_fd[0] = dup(0);
 		std_fd[1] = dup(1);
-		fd = open_redir_list(*tree->l_redir);
-		if (fd == NULL)
-			return ;
-		dup2(fd[0], STDIN_FILENO);
-		dup2(fd[1], STDOUT_FILENO);
+		while (aux)
+		{
+			open_redir_list(aux);
+			aux = aux->next;
+		}
+		dup2(g_shell->fd[0], STDIN_FILENO);
+		dup2(g_shell->fd[1], STDOUT_FILENO);
 		exec_single_child(tree->content);
 		dup2(std_fd[0], STDIN_FILENO);
 		dup2(std_fd[1], STDOUT_FILENO);
-		close(std_fd[0]);
-		close(std_fd[1]);
-		close(fd[1]);
+		close_redir(std_fd[0], std_fd[1]);
 	}
 	else
 		exec_single_child(tree->content);
