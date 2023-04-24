@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:36:38 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/04/13 21:06:49 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:37:04 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
+# include <dirent.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
@@ -59,12 +60,20 @@ t_list	*until_name(char *name, t_list *env);
 int		is_in_env(char *arg, t_list *env);
 char	**env_2_arr(t_list *env);
 
-/*	UTILS	*/
+/*	PRINT UTILS	*/
 
 void	print_env(char **env);
 void	print_list(t_list *env);
-void	free_arr(char **arr);
 int		print_secret(t_shell *shell, int fd);
+
+/* FREE UTILS */
+
+void	free_arr(char **arr);
+
+/*	REDIR UTILS	*/
+
+int		is_directory(char *value);
+void	heredoc(char *value);
 
 /* BUILTIN UTILS */
 

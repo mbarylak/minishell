@@ -6,7 +6,7 @@
 /*   By: mbarylak <mbarylak@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:46:58 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/04/20 21:33:07 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:36:42 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_redir_list(t_redir *redir)
 
 	aux = redir;
 	if (!aux)
-		return (1);
+		return (2);
 	while (aux)
 	{
 		if (!aux->value)
@@ -53,11 +53,11 @@ int	check_redir_list(t_redir *redir)
 			print_error(-1, NULL);
 			return (1);
 		}
-		/*else if (is_directory(aux->value))
+		else if (is_directory(aux->value))
 		{
 			print_error(-2, aux->value);
 			return (1);
-		}*/
+		}
 		aux = aux->next;
 	}
 	return (0);
@@ -75,7 +75,8 @@ void	open_redir_list(t_redir *redir)
 	}
 	else if (redir->r_type == T_APPEND_OUT)
 		g_shell->fd[1] = open(redir->value, O_APPEND | O_RDWR | O_CREAT, 00644);
-	//else if (redir->r_type == T_HEREDOC)
+	else if (redir->r_type == T_HEREDOC)
+		heredoc(redir->value);
 }
 
 void	close_redir(int fd0, int fd1)
@@ -98,9 +99,11 @@ void	redir(t_tree *tree)
 {
 	t_redir	*aux;
 	int		std_fd[2];
+	int		check;
 
 	aux = *tree->l_redir;
-	if (!check_redir_list(aux))
+	check = check_redir_list(aux);
+	if (!check)
 	{
 		std_fd[0] = dup(0);
 		std_fd[1] = dup(1);
@@ -111,11 +114,12 @@ void	redir(t_tree *tree)
 		}
 		dup2(g_shell->fd[0], STDIN_FILENO);
 		dup2(g_shell->fd[1], STDOUT_FILENO);
-		exec_single_child(tree->content);
+		execute(tree);
 		dup2(std_fd[0], STDIN_FILENO);
 		dup2(std_fd[1], STDOUT_FILENO);
 		close_redir(std_fd[0], std_fd[1]);
 	}
 	else
-		exec_single_child(tree->content);
+		if (check == 2)
+			execute(tree);
 }

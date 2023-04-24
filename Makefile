@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danimart <danimart@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbarylak <mbarylak@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 16:16:25 by danimart          #+#    #+#              #
-#    Updated: 2023/02/09 19:21:12 by mbarylak         ###   ########.fr        #
+#    Updated: 2023/04/24 20:24:45 by mbarylak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 LIBFT_NAME	=	libft.a
 
-UTILS		=	env_utils env_utils2 print_info free
+UTILS		=	env_utils env_utils2 print_info free redir_utils
 EXEC		=	exec_builtins exec_cmd exec_single_child shell_loop exe_pipes \
 				redir
 PARSER		=	create_tree join_cmd input_parser get_redir_list

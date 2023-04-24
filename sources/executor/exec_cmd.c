@@ -6,11 +6,19 @@
 /*   By: mbarylak <mbarylak@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:26:12 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/04/13 19:22:08 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:50:15 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	execute(t_tree *tree)
+{
+	if (g_shell->pipes == 0)
+		return (exec_single_child(tree->content));
+	else
+		return (exe_pipes(tree));
+}
 
 static int	print_error(char *cmd, int n)
 {

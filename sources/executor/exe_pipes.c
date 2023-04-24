@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_pipes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbarylak <mbarylak@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:07:15 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/01/12 16:42:17 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:06:04 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	first_child(t_tree *tree)
 	if (pid == 0)
 	{
 		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
+		if (g_shell->fd[1] == 1)
+			dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		choose_exec(tree);
 	}
@@ -53,9 +54,11 @@ void	middle_child(t_tree *tree)
 	if (pid == 0)
 	{
 		close(fd[0]);
-		dup2(g_shell->oldfd[0], STDIN_FILENO);
+		if (g_shell->fd[0] == 0)
+			dup2(g_shell->oldfd[0], STDIN_FILENO);
 		close(g_shell->oldfd[0]);
-		dup2(fd[1], STDOUT_FILENO);
+		if (g_shell->fd[1] == 1)
+			dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		choose_exec(tree);
 	}
@@ -78,7 +81,8 @@ void	last_child(t_tree *tree)
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(g_shell->oldfd[0], STDIN_FILENO);
+		if (g_shell->fd[0] == 0)
+			dup2(g_shell->oldfd[0], STDIN_FILENO);
 		close(g_shell->oldfd[0]);
 		choose_exec(tree);
 	}
@@ -101,6 +105,6 @@ int	exe_pipes(t_tree *tree)
 	else if (tree->cmd_pos == P_LAST)
 		last_child(tree);
 	else if (tree->cmd_pos == 0)
-		return (0);
+		return (1);
 	return (0);
 }

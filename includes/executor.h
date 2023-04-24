@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarylak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbarylak <mbarylak@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:49:50 by mbarylak          #+#    #+#             */
-/*   Updated: 2023/02/15 16:52:31 by mbarylak         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:57:50 by mbarylak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /*	EXEC_CMD */
 
+int		execute(t_tree *tree);
 char	**get_env_path(t_list *env);
 char	*get_right_path(char *cmd);
 int		exec_cmd(char **cmd);
